@@ -1,0 +1,35 @@
+def encrypt(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            shift_amount = shift % 26
+            base = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - base + shift_amount) % 26 + base)
+        else:
+            result += char
+    return result
+
+def decrypt(text, shift):
+    encrypt(text, -shift)
+
+def main():
+    while True:
+        choice = input("Do you want to (e)ncrypt or (d)ecrypt a message? (e/d): ").lower()
+        if choice in ['e', 'd']:
+            message = input("Enter your message: ")
+            shift = int(input("Enter shift value: "))
+            if choice == 'e':
+                encrypted_message = encrypt(message, shift)
+                print(f"Encrypted message: {encrypted_message}")
+            elif choice == 'd':
+                decrypted_message = decrypt(message, shift)
+                print(f"Decrypted message: {decrypted_message}")
+        else:
+            print("Invalid choice. Please enter 'e' for encrypt or 'd' for decrypt.")
+
+        continue_choice = input("Do you want to encrypt/decrypt another message? (y/n): ").lower()
+        if continue_choice != 'y':
+            break
+
+if __name__ == "__main__":
+    main()return 
